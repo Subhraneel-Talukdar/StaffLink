@@ -1,0 +1,863 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - EMS</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-users-cog"></i>
+                    <span>EMS</span>
+                </div>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#overview">
+                            <i class="fas fa-home"></i>
+                            <span>Overview</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#profile">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#attendance">
+                            <i class="fas fa-clock"></i>
+                            <span>Attendance</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#salary">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>Salary</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#performance">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Performance</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tasks">
+                            <i class="fas fa-tasks"></i>
+                            <span>Tasks</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#planner">
+                            <i class="fas fa-calendar-alt"></i>
+                            <span>Planner</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#documents">
+                            <i class="fas fa-file-alt"></i>
+                            <span>Documents</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#messages">
+                            <i class="fas fa-comments"></i>
+                            <span>Messages</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#settings">
+                            <i class="fas fa-cog"></i>
+                            <span>Settings</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn text">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Bar -->
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">3</span>
+                    </div>
+                    
+                    <div class="user-profile">
+                        <img src="../images/avatar.jpg" alt="Profile Picture" class="avatar">
+                        <div class="user-info">
+                            <span class="user-name">John Doe</span>
+                            <span class="user-role">Employee</span>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <!-- Overview Section -->
+                <section id="overview" class="dashboard-section">
+                    <h2>Welcome Back, John!</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Work Hours</h3>
+                                <p class="stat-value">168</p>
+                                <p class="stat-label">This Month</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Salary</h3>
+                                <p class="stat-value">$4,500</p>
+                                <p class="stat-label">This Month</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-tasks"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Tasks</h3>
+                                <p class="stat-value">12</p>
+                                <p class="stat-label">Pending</p>
+                            </div>
+                        </div>
+                        
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Performance</h3>
+                                <p class="stat-value">92%</p>
+                                <p class="stat-label">This Month</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>Work Hours Trend</h3>
+                            <canvas id="workHoursChart"></canvas>
+                        </div>
+                        
+                        <div class="chart-card">
+                            <h3>Performance Metrics</h3>
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="recent-activity">
+                        <h3>Recent Activity</h3>
+                        <div class="activity-list">
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p>Clock in at 9:00 AM</p>
+                                    <span class="activity-time">2 hours ago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-tasks"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p>Completed project milestone</p>
+                                    <span class="activity-time">4 hours ago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p>Uploaded monthly report</p>
+                                    <span class="activity-time">1 day ago</span>
+                                </div>
+                            </div>
+                            
+                            <div class="activity-item">
+                                <div class="activity-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <div class="activity-details">
+                                    <p>New message from HR</p>
+                                    <span class="activity-time">2 days ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Profile Section -->
+                <section id="profile" class="dashboard-section hidden">
+                    <h2>Profile Settings</h2>
+                    
+                    <div class="profile-container">
+                        <div class="profile-header">
+                            <div class="profile-picture">
+                                <img src="../images/avatar.jpg" alt="Profile Picture">
+                                <button class="btn secondary">
+                                    <i class="fas fa-camera"></i>
+                                    Change Photo
+                                </button>
+                            </div>
+                            
+                            <div class="profile-info">
+                                <h3>John Doe</h3>
+                                <p>Employee ID: EMP001</p>
+                                <p>Department: IT</p>
+                            </div>
+                        </div>
+                        
+                        <form class="profile-form">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" value="John Doe">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="email" value="john.doe@company.com">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Phone</label>
+                                <input type="tel" value="+1 234 567 8900">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label>Address</label>
+                                <textarea>123 Main St, City, Country</textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn primary">Save Changes</button>
+                        </form>
+                    </div>
+                </section>
+
+                <!-- Attendance Section -->
+                <section id="attendance" class="dashboard-section hidden">
+                    <h2>Attendance Records</h2>
+                    
+                    <div class="attendance-container">
+                        <div class="attendance-header">
+                            <div class="date-picker">
+                                <input type="month" id="attendanceMonth">
+                            </div>
+                            <button class="btn primary">
+                                <i class="fas fa-download"></i>
+                                Export Report
+                            </button>
+                        </div>
+                        
+                        <div class="attendance-stats">
+                            <div class="stat-card">
+                                <h3>Present Days</h3>
+                                <p class="stat-value">22</p>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <h3>Absent Days</h3>
+                                <p class="stat-value">1</p>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <h3>Late Days</h3>
+                                <p class="stat-value">2</p>
+                            </div>
+                            
+                            <div class="stat-card">
+                                <h3>Total Hours</h3>
+                                <p class="stat-value">168</p>
+                            </div>
+                        </div>
+                        
+                        <div class="attendance-table">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Clock In</th>
+                                        <th>Clock Out</th>
+                                        <th>Total Hours</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2024-03-20</td>
+                                        <td>9:00 AM</td>
+                                        <td>5:00 PM</td>
+                                        <td>8</td>
+                                        <td><span class="status present">Present</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>2024-03-19</td>
+                                        <td>9:15 AM</td>
+                                        <td>5:00 PM</td>
+                                        <td>7.75</td>
+                                        <td><span class="status late">Late</span></td>
+                                    </tr>
+                                    <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Salary Section -->
+                <section id="salary" class="dashboard-section hidden">
+                    <h2>Salary Information</h2>
+                    
+                    <div class="salary-container">
+                        <div class="salary-overview">
+                            <div class="salary-card">
+                                <h3>Current Salary</h3>
+                                <p class="salary-amount">$4,500</p>
+                                <p class="salary-period">Monthly</p>
+                            </div>
+                            
+                            <div class="salary-card">
+                                <h3>Total Earnings</h3>
+                                <p class="salary-amount">$54,000</p>
+                                <p class="salary-period">This Year</p>
+                            </div>
+                            
+                            <div class="salary-card">
+                                <h3>Next Payment</h3>
+                                <p class="salary-amount">March 25, 2024</p>
+                                <p class="salary-period">Expected Date</p>
+                            </div>
+                        </div>
+                        
+                        <div class="salary-details">
+                            <h3>Salary Breakdown</h3>
+                            <div class="salary-chart">
+                                <canvas id="salaryChart"></canvas>
+                            </div>
+                        </div>
+                        
+                        <div class="salary-history">
+                            <h3>Payment History</h3>
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>2024-02-25</td>
+                                        <td>$4,500</td>
+                                        <td><span class="status paid">Paid</span></td>
+                                        <td>
+                                            <button class="btn text">
+                                                <i class="fas fa-download"></i>
+                                                Receipt
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <!-- Add more rows as needed -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Performance Section -->
+                <section id="performance" class="dashboard-section hidden">
+                    <h2>Performance Metrics</h2>
+                    
+                    <div class="performance-container">
+                        <div class="performance-overview">
+                            <div class="performance-card">
+                                <h3>Overall Rating</h3>
+                                <div class="rating">
+                                    <span class="rating-value">4.5</span>
+                                    <div class="stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="performance-card">
+                                <h3>Tasks Completed</h3>
+                                <p class="stat-value">45</p>
+                                <p class="stat-label">This Quarter</p>
+                            </div>
+                            
+                            <div class="performance-card">
+                                <h3>On-Time Delivery</h3>
+                                <p class="stat-value">95%</p>
+                                <p class="stat-label">Success Rate</p>
+                            </div>
+                        </div>
+                        
+                        <div class="performance-chart">
+                            <canvas id="performanceTrendChart"></canvas>
+                        </div>
+                        
+                        <div class="performance-feedback">
+                            <h3>Recent Feedback</h3>
+                            <div class="feedback-list">
+                                <div class="feedback-item">
+                                    <div class="feedback-header">
+                                        <span class="feedback-date">March 15, 2024</span>
+                                        <span class="feedback-rating">5.0</span>
+                                    </div>
+                                    <p class="feedback-text">Excellent work on the project delivery. Maintained high quality standards throughout.</p>
+                                    <span class="feedback-author">- Manager</span>
+                                </div>
+                                <!-- Add more feedback items as needed -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tasks Section -->
+                <section id="tasks" class="dashboard-section hidden">
+                    <h2>Tasks & To-Do List</h2>
+                    
+                    <div class="tasks-container">
+                        <div class="tasks-header">
+                            <button class="btn primary" id="addTaskBtn">
+                                <i class="fas fa-plus"></i>
+                                Add Task
+                            </button>
+                        </div>
+                        
+                        <div class="tasks-grid">
+                            <div class="task-column">
+                                <h3>To Do</h3>
+                                <div class="task-list" id="todoList">
+                                    <div class="task-item" draggable="true">
+                                        <div class="task-header">
+                                            <input type="checkbox">
+                                            <h4>Complete project documentation</h4>
+                                        </div>
+                                        <p class="task-description">Update all project files and create final report</p>
+                                        <div class="task-meta">
+                                            <span class="task-due">Due: Mar 25</span>
+                                            <span class="task-priority high">High</span>
+                                        </div>
+                                    </div>
+                                    <!-- Add more tasks as needed -->
+                                </div>
+                            </div>
+                            
+                            <div class="task-column">
+                                <h3>In Progress</h3>
+                                <div class="task-list" id="inProgressList">
+                                    <div class="task-item" draggable="true">
+                                        <div class="task-header">
+                                            <input type="checkbox">
+                                            <h4>Review code changes</h4>
+                                        </div>
+                                        <p class="task-description">Review and approve pull requests</p>
+                                        <div class="task-meta">
+                                            <span class="task-due">Due: Mar 23</span>
+                                            <span class="task-priority medium">Medium</span>
+                                        </div>
+                                    </div>
+                                    <!-- Add more tasks as needed -->
+                                </div>
+                            </div>
+                            
+                            <div class="task-column">
+                                <h3>Completed</h3>
+                                <div class="task-list" id="completedList">
+                                    <div class="task-item" draggable="true">
+                                        <div class="task-header">
+                                            <input type="checkbox" checked>
+                                            <h4>Team meeting</h4>
+                                        </div>
+                                        <p class="task-description">Weekly sync with development team</p>
+                                        <div class="task-meta">
+                                            <span class="task-due">Completed</span>
+                                            <span class="task-priority low">Low</span>
+                                        </div>
+                                    </div>
+                                    <!-- Add more tasks as needed -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Planner Section -->
+                <section id="planner" class="dashboard-section hidden">
+                    <h2>Planner</h2>
+                    
+                    <div class="planner-container">
+                        <div class="planner-header">
+                            <div class="date-navigation">
+                                <button class="btn text">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <h3>March 2024</h3>
+                                <button class="btn text">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <button class="btn primary" id="addEventBtn">
+                                <i class="fas fa-plus"></i>
+                                Add Event
+                            </button>
+                        </div>
+                        
+                        <div class="planner-grid">
+                            <div class="planner-sidebar">
+                                <div class="time-slots">
+                                    <div class="time-slot">9:00 AM</div>
+                                    <div class="time-slot">10:00 AM</div>
+                                    <div class="time-slot">11:00 AM</div>
+                                    <div class="time-slot">12:00 PM</div>
+                                    <div class="time-slot">1:00 PM</div>
+                                    <div class="time-slot">2:00 PM</div>
+                                    <div class="time-slot">3:00 PM</div>
+                                    <div class="time-slot">4:00 PM</div>
+                                    <div class="time-slot">5:00 PM</div>
+                                </div>
+                            </div>
+                            
+                            <div class="planner-main">
+                                <div class="planner-days">
+                                    <div class="day-header">Mon</div>
+                                    <div class="day-header">Tue</div>
+                                    <div class="day-header">Wed</div>
+                                    <div class="day-header">Thu</div>
+                                    <div class="day-header">Fri</div>
+                                    <div class="day-header">Sat</div>
+                                    <div class="day-header">Sun</div>
+                                </div>
+                                
+                                <div class="planner-grid-cells">
+                                    <!-- Grid cells will be generated dynamically -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Documents Section -->
+                <section id="documents" class="dashboard-section hidden">
+                    <h2>Documents</h2>
+                    
+                    <div class="documents-container">
+                        <div class="documents-header">
+                            <div class="search-bar">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search documents...">
+                            </div>
+                            <button class="btn primary" id="uploadDocBtn">
+                                <i class="fas fa-upload"></i>
+                                Upload Document
+                            </button>
+                        </div>
+                        
+                        <div class="documents-grid">
+                            <div class="document-card">
+                                <div class="document-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div class="document-info">
+                                    <h4>Monthly Report.pdf</h4>
+                                    <p>2.5 MB</p>
+                                    <span class="document-date">Mar 15, 2024</span>
+                                </div>
+                                <div class="document-actions">
+                                    <button class="btn text">
+                                        <i class="fas fa-download"></i>
+                                    </button>
+                                    <button class="btn text">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- Add more document cards as needed -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Messages Section -->
+                <section id="messages" class="dashboard-section hidden">
+                    <h2>Messages</h2>
+                    
+                    <div class="messages-container">
+                        <div class="messages-sidebar">
+                            <div class="messages-search">
+                                <i class="fas fa-search"></i>
+                                <input type="text" placeholder="Search messages...">
+                            </div>
+                            
+                            <div class="messages-list">
+                                <div class="message-item active">
+                                    <div class="message-avatar">
+                                        <img src="../images/avatar.jpg" alt="User">
+                                    </div>
+                                    <div class="message-info">
+                                        <h4>HR Department</h4>
+                                        <p>Please submit your monthly report...</p>
+                                    </div>
+                                    <span class="message-time">2:30 PM</span>
+                                </div>
+                                <!-- Add more message items as needed -->
+                            </div>
+                        </div>
+                        
+                        <div class="messages-main">
+                            <div class="messages-header">
+                                <div class="chat-user">
+                                    <img src="../images/avatar.jpg" alt="User">
+                                    <div class="user-info">
+                                        <h4>HR Department</h4>
+                                        <span class="user-status">Online</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="messages-chat">
+                                <div class="message received">
+                                    <p>Please submit your monthly report by the end of this week.</p>
+                                    <span class="message-time">2:30 PM</span>
+                                </div>
+                                <div class="message sent">
+                                    <p>I'll submit it by Friday.</p>
+                                    <span class="message-time">2:31 PM</span>
+                                </div>
+                                <!-- Add more messages as needed -->
+                            </div>
+                            
+                            <div class="messages-input">
+                                <input type="text" placeholder="Type a message...">
+                                <button class="btn primary">
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Settings Section -->
+                <section id="settings" class="dashboard-section hidden">
+                    <h2>Settings</h2>
+                    
+                    <div class="settings-container">
+                        <div class="settings-section">
+                            <h3>Account Settings</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>Email Notifications</label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>SMS Notifications</label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox">
+                                        <span class="toggle-slider"></span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Two-Factor Authentication</label>
+                                    <div class="toggle-switch">
+                                        <input type="checkbox" checked>
+                                        <span class="toggle-slider"></span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <h3>Change Password</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>Current Password</label>
+                                    <input type="password">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>New Password</label>
+                                    <input type="password">
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Confirm New Password</label>
+                                    <input type="password">
+                                </div>
+                                
+                                <button type="submit" class="btn primary">Update Password</button>
+                            </form>
+                        </div>
+                        
+                        <div class="settings-section">
+                            <h3>Language & Region</h3>
+                            <form class="settings-form">
+                                <div class="form-group">
+                                    <label>Language</label>
+                                    <select>
+                                        <option value="en">English</option>
+                                        <option value="es">Spanish</option>
+                                        <option value="fr">French</option>
+                                    </select>
+                                </div>
+                                
+                                <div class="form-group">
+                                    <label>Time Zone</label>
+                                    <select>
+                                        <option value="utc">UTC</option>
+                                        <option value="est">EST</option>
+                                        <option value="pst">PST</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Modals -->
+    <div class="modal" id="addTaskModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Task</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label>Task Title</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Due Date</label>
+                    <input type="date">
+                </div>
+                <div class="form-group">
+                    <label>Priority</label>
+                    <select>
+                        <option value="low">Low</option>
+                        <option value="medium">Medium</option>
+                        <option value="high">High</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn primary">Add Task</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="addEventModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add New Event</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label>Event Title</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="date">
+                </div>
+                <div class="form-group">
+                    <label>Time</label>
+                    <input type="time">
+                </div>
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea></textarea>
+                </div>
+                <button type="submit" class="btn primary">Add Event</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="modal" id="uploadDocModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Upload Document</h3>
+                <button class="close-modal">&times;</button>
+            </div>
+            <form class="modal-form">
+                <div class="form-group">
+                    <label>Document Title</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>File</label>
+                    <input type="file">
+                </div>
+                <div class="form-group">
+                    <label>Category</label>
+                    <select>
+                        <option value="report">Report</option>
+                        <option value="contract">Contract</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn primary">Upload</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/dashboard.js"></script>
+</body>
+</html> 
