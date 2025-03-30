@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account - Employee Management System</title>
+    <link rel="stylesheet" href="/css/create-account.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="form-container">
+            <div class="form-header">
+                <h2>Create Account</h2>
+                <div class="form-type-toggle">
+                    <button class="toggle-btn active" data-form="employee">Employee</button>
+                    <button class="toggle-btn" data-form="admin">Admin</button>
+                </div>
+            </div>
+
+            <!-- Employee Registration Form -->
+            <form id="employeeForm" class="registration-form active">
+                <div class="form-group">
+                    <label for="empFullName">Full Name</label>
+                    <input type="text" id="empFullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="empEmail">Email</label>
+                    <input type="email" id="empEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="empDepartment">Department</label>
+                    <select id="empDepartment" name="department" required>
+                        <option value="">Select Department</option>
+                        <option value="IT">IT</option>
+                        <option value="HR">HR</option>
+                        <option value="Finance">Finance</option>
+                        <option value="Marketing">Marketing</option>
+                        <option value="Operations">Operations</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="empPassword">Password</label>
+                    <input type="password" id="empPassword" name="password" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('empPassword', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <small class="password-hint">Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character (!@#$%^&*)</small>
+                </div>
+                <div class="form-group">
+                    <label for="empConfirmPassword">Confirm Password</label>
+                    <input type="password" id="empConfirmPassword" name="confirmPassword" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('empConfirmPassword', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <button type="submit" class="submit-btn">Create Employee Account</button>
+            </form>
+
+            <!-- Admin Registration Form -->
+            <form id="adminForm" class="registration-form">
+                <div class="form-group">
+                    <label for="adminFullName">Full Name</label>
+                    <input type="text" id="adminFullName" name="fullName" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminEmail">Email</label>
+                    <input type="email" id="adminEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="adminCode">Admin Code</label>
+                    <input type="password" id="adminCode" name="adminCode" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('adminCode', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <small class="admin-hint">Contact system administrator for the admin code</small>
+                </div>
+                <div class="form-group">
+                    <label for="adminPassword">Password</label>
+                    <input type="password" id="adminPassword" name="password" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('adminPassword', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                    <small class="password-hint">Password must be at least 8 characters long and contain uppercase, lowercase, number, and special character (!@#$%^&*)</small>
+                </div>
+                <div class="form-group">
+                    <label for="adminConfirmPassword">Confirm Password</label>
+                    <input type="password" id="adminConfirmPassword" name="confirmPassword" required>
+                    <button type="button" class="password-toggle" onclick="togglePassword('adminConfirmPassword', this)">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+                <button type="submit" class="submit-btn">Create Admin Account</button>
+            </form>
+
+            <div class="form-footer">
+                <p>Already have an account? <a href="/login">Login here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(inputId, button) {
+            const input = document.getElementById(inputId);
+            const icon = button.querySelector('i');
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                icon.classList.remove('fa-eye');
+                icon.classList.add('fa-eye-slash');
+            } else {
+                input.type = 'password';
+                icon.classList.remove('fa-eye-slash');
+                icon.classList.add('fa-eye');
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get account type from URL parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const accountType = urlParams.get('type');
+
+            // Get form elements
+            const employeeForm = document.getElementById('employeeForm');
+            const adminForm = document.getElementById('adminForm');
+            const toggleButtons = document.querySelectorAll('.toggle-btn');
+
+            // Show appropriate form based on URL parameter
+            if (accountType === 'admin') {
+                employeeForm.classList.remove('active');
+                adminForm.classList.add('active');
+                toggleButtons[0].classList.remove('active');
+                toggleButtons[1].classList.add('active');
+            }
+
+            // Toggle between forms
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    toggleButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const formType = button.dataset.form;
+                    if (formType === 'employee') {
+                        employeeForm.classList.add('active');
+                        adminForm.classList.remove('active');
+                    } else {
+                        adminForm.classList.add('active');
+                        employeeForm.classList.remove('active');
+                    }
+                });
+            });
+
+            // Handle form submissions
+            employeeForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                // Add your employee registration logic here
+                console.log('Employee registration submitted');
+            });
+
+            adminForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                // Add your admin registration logic here
+                console.log('Admin registration submitted');
+            });
+        });
+    </script>
+    <script src="/js/create-account.js"></script>
+</body>
+</html> 

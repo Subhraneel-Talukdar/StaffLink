@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payroll - EMS Admin</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body>
+    <button class="nav-toggle">
+        <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <i class="fas fa-users-cog"></i>
+                <span>EMS Admin</span>
+            </div>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <ul>
+                <li>
+                    <a href="/admin-dashboard.html">
+                        <i class="fas fa-home"></i>
+                        <span>Overview</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/pages/employees.html">
+                        <i class="fas fa-users"></i>
+                        <span>Employees</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/pages/departments.html">
+                        <i class="fas fa-building"></i>
+                        <span>Departments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/pages/attendance.html">
+                        <i class="fas fa-clock"></i>
+                        <span>Attendance</span>
+                    </a>
+                </li>
+                <li class="active">
+                    <a href="/pages/payroll.html">
+                        <i class="fas fa-money-bill-wave"></i>
+                        <span>Payroll</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/pages/performance.html">
+                        <i class="fas fa-chart-line"></i>
+                        <span>Performance</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/pages/settings.html">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        
+        <div class="sidebar-footer">
+            <button id="logoutBtn" class="logout-btn">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        </div>
+    </aside>
+
+    <div class="dashboard-container">
+        <div class="dashboard-main">
+            <h1>Payroll Management</h1>
+            
+            <!-- Quick Actions -->
+            <div class="action-bar">
+                <button class="action-btn">
+                    <i class="fas fa-file-invoice-dollar"></i>
+                    Process Payroll
+                </button>
+                <button class="action-btn">
+                    <i class="fas fa-file-export"></i>
+                    Export Payslips
+                </button>
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search payroll records...">
+                </div>
+            </div>
+
+            <!-- Payroll Overview -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Total Payroll</span>
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <div class="stat-value" id="totalPayroll">$0</div>
+                    <div class="stat-change">
+                        <i class="fas fa-calendar"></i>
+                        <span>This Month</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Pending Payments</span>
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-value" id="pendingPayments">0</div>
+                    <div class="stat-change warning">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Need Processing</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Processed</span>
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stat-value" id="processedPayments">0</div>
+                    <div class="stat-change positive">
+                        <i class="fas fa-check"></i>
+                        <span>Completed</span>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-header">
+                        <span class="stat-title">Average Salary</span>
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <div class="stat-value" id="avgSalary">$0</div>
+                    <div class="stat-change">
+                        <i class="fas fa-users"></i>
+                        <span>Per Employee</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Payroll Records -->
+            <div class="payroll-list">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Employee Name</th>
+                            <th>Department</th>
+                            <th>Base Salary</th>
+                            <th>Bonus</th>
+                            <th>Deductions</th>
+                            <th>Net Pay</th>
+                        </tr>
+                    </thead>
+                    <tbody id="payrollTableBody">
+                        <!-- Will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/payroll.js"></script>
+</body>
+</html> 

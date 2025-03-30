@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Dashboard - EMS</title>
+    <link rel="stylesheet" href="/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <i class="fas fa-user"></i>
+                <h2>Employee Panel</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active">
+                        <a href="#dashboard">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#payroll">
+                            <i class="fas fa-money-bill-wave"></i>
+                            <span>Payroll</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#performance">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Performance</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#tokens">
+                            <i class="fas fa-coins"></i>
+                            <span>Company Tokens</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <div class="sidebar-footer">
+                <button id="logoutBtn" class="btn secondary">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="top-bar">
+                <div class="search-bar">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search...">
+                </div>
+                <div class="user-menu">
+                    <div class="notifications">
+                        <i class="fas fa-bell"></i>
+                        <span class="badge">0</span>
+                    </div>
+                    <div class="user-profile">
+                        <img src="/images/default-avatar.png" alt="Profile" class="avatar">
+                        <span class="user-name" id="employeeName">Employee Name</span>
+                    </div>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Dashboard Section -->
+                <section id="dashboard" class="dashboard-section active">
+                    <h2>Welcome Back, <span id="welcomeName">Employee</span>!</h2>
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-money-bill-wave"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Current Salary</h3>
+                                <p class="stat-value" id="currentSalary">$0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-coins"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Token Balance</h3>
+                                <p class="stat-value" id="tokenBalance">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Working Hours</h3>
+                                <p class="stat-value" id="workingHours">0</p>
+                            </div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <h3>Leave Balance</h3>
+                                <p class="stat-value" id="leaveBalance">0</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Payroll Section -->
+                <section id="payroll" class="dashboard-section">
+                    <h2>Payroll Information</h2>
+                    <div class="payroll-grid">
+                        <div class="payroll-filters">
+                            <select id="payrollMonth">
+                                <option value="">Select Month</option>
+                            </select>
+                        </div>
+                        <div class="payroll-details">
+                            <div class="payroll-card">
+                                <h3>Salary Details</h3>
+                                <div class="payroll-info">
+                                    <div class="info-row">
+                                        <span>Basic Salary:</span>
+                                        <span id="basicSalary">$0</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span>Allowances:</span>
+                                        <span id="allowances">$0</span>
+                                    </div>
+                                    <div class="info-row">
+                                        <span>Deductions:</span>
+                                        <span id="deductions">$0</span>
+                                    </div>
+                                    <div class="info-row total">
+                                        <span>Net Salary:</span>
+                                        <span id="netSalary">$0</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="payroll-card">
+                                <h3>Incentives</h3>
+                                <div class="incentives-list" id="incentivesList">
+                                    <!-- Incentives will be dynamically added here -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Performance Section -->
+                <section id="performance" class="dashboard-section">
+                    <h2>Performance Overview</h2>
+                    <div class="performance-grid">
+                        <div class="performance-filters">
+                            <select id="performanceMonth">
+                                <option value="">Select Month</option>
+                            </select>
+                        </div>
+                        <div class="performance-stats">
+                            <div class="stat-card">
+                                <h3>Working Hours</h3>
+                                <p class="stat-value" id="monthlyWorkingHours">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Leave Days</h3>
+                                <p class="stat-value" id="monthlyLeaveDays">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Absent Days</h3>
+                                <p class="stat-value" id="monthlyAbsentDays">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Overtime Hours</h3>
+                                <p class="stat-value" id="monthlyOvertimeHours">0</p>
+                            </div>
+                        </div>
+                        <div class="performance-chart">
+                            <canvas id="performanceChart"></canvas>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Company Tokens Section -->
+                <section id="tokens" class="dashboard-section">
+                    <h2>Company Tokens</h2>
+                    <div class="token-grid">
+                        <div class="token-balance">
+                            <div class="stat-card">
+                                <h3>Current Balance</h3>
+                                <p class="stat-value" id="currentTokenBalance">0</p>
+                            </div>
+                            <div class="stat-card">
+                                <h3>Available to Send</h3>
+                                <p class="stat-value" id="availableToSend">0</p>
+                            </div>
+                        </div>
+                        <div class="token-actions">
+                            <button class="btn primary" id="sendTokensBtn">
+                                <i class="fas fa-paper-plane"></i>
+                                Send Tokens
+                            </button>
+                            <button class="btn secondary" id="tokenHistoryBtn">
+                                <i class="fas fa-history"></i>
+                                Transaction History
+                            </button>
+                        </div>
+                        <div class="token-transactions">
+                            <h3>Recent Transactions</h3>
+                            <table class="token-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Type</th>
+                                        <th>Amount</th>
+                                        <th>From/To</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tokenTransactionsBody">
+                                    <!-- Token transactions will be dynamically added here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Salary and Token Management Section -->
+                <section class="salary-tokens-section">
+                    <div class="section-header">
+                        <h2>Salary & Token Management</h2>
+                    </div>
+
+                    <div class="balance-cards">
+                        <div class="balance-card salary">
+                            <h3>Current Salary</h3>
+                            <p id="currentSalary">$0.00</p>
+                        </div>
+                        <div class="balance-card tokens">
+                            <h3>Token Balance</h3>
+                            <p id="tokenBalance">0</p>
+                        </div>
+                        <div class="balance-card allowance">
+                            <h3>Token Allowance</h3>
+                            <p id="tokenAllowance">0</p>
+                        </div>
+                    </div>
+
+                    <div class="token-actions">
+                        <div class="action-card buy">
+                            <h3>Buy Tokens</h3>
+                            <div class="input-group">
+                                <input type="number" id="buyTokenAmount" placeholder="Amount of tokens">
+                                <button id="buyTokensBtn">Buy</button>
+                            </div>
+                        </div>
+                        <div class="action-card sell">
+                            <h3>Sell Tokens</h3>
+                            <div class="input-group">
+                                <input type="number" id="sellTokenAmount" placeholder="Amount of tokens">
+                                <button id="sellTokensBtn">Sell</button>
+                            </div>
+                        </div>
+                        <div class="action-card transfer">
+                            <h3>Transfer Tokens</h3>
+                            <div class="input-group">
+                                <select id="transferToUserId">
+                                    <option value="">Select Employee</option>
+                                </select>
+                                <input type="number" id="transferTokenAmount" placeholder="Amount of tokens">
+                                <button id="transferTokensBtn">Transfer</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="transactions-grid">
+                        <div class="transactions-card salary">
+                            <h3>Salary Transactions</h3>
+                            <div id="salaryTransactions" class="transactions-list">
+                                <!-- Salary transactions will be populated here -->
+                            </div>
+                        </div>
+                        <div class="transactions-card tokens">
+                            <h3>Token Transactions</h3>
+                            <div id="tokenTransactions" class="transactions-list">
+                                <!-- Token transactions will be populated here -->
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+</html> 
